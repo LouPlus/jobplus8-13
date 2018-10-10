@@ -8,3 +8,4 @@ LouPlus Team  X https://www.shiyanlou.com/LouPlus
 * [独云](https://github.com/duyunw)
 * [渊上寒](https://github.com/Yuanshanghan)
 * [祝督](https://github.com/limitZD)
+* [怀古一河深](https://github.com/huanglinglin)
