@@ -7,3 +7,4 @@ LouPlus Team  X https://www.shiyanlou.com/LouPlus
 * [月咏小萌](https://github.com/LouPlus)
 * [独云](https://github.com/duyunw)
 * [渊上寒](https://github.com/Yuanshanghan)
+* [祝督](https://github.com/limitZD)
