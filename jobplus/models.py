@@ -8,24 +8,24 @@ db = SQLAlchemy()
 
 class Base(db.Model):
 	__abstract__ = True
-	created_at = db.Column(db.DataTime,default=datetime.utcnow)
-	updated_at = db.Column(db.DataTime,default=datetime.utcnow,onupdate=datetime.utcnow)
+	created_at = db.Column(db.DateTime,default=datetime.utcnow)
+	updated_at = db.Column(db.DateTime,default=datetime.utcnow,onupdate=datetime.utcnow)
 
 
 user_job = db.Table(
 	'user_job',
-	db.Column('user_id',db.Integer,db,ForeignKey('user.id',ondelete='CASCADE')),
+	db.Column('user_id',db.Integer,db.ForeignKey('user.id',ondelete='CASCADE')),
 	db.Column('job_id',db.Integer,db.ForeignKey('job.id',ondelete='CASCADE'))
 )
 
 class User(Base,UserMixin):
 	__tablename__ = 'user'
 	
-	＃普通用户权限
+	#普通用户权限
 	ROLE_USER = 10
-	＃企业用户权限
+	#企业用户权限
 	ROLE_COMPANY = 20
-	＃管理员用户权限
+	#管理员用户权限
 	ROLE_ADMIN = 30 
 
 	id = db.Column(db.Integer,primary_key=True)
@@ -77,7 +77,7 @@ class Job(Base):
 	is_fulltime = db.Column(db.Boolean,default=True)
 
 	is_open = db.Column(db.Boolean,default=True)
-	company_id = db.Column(db.integer,db.ForeignKey('company.id',ondelete='CASCADE'))
+	company_id = db.Column(db.Integer,db.ForeignKey('company.id',ondelete='CASCADE'))
 	company = db.relationship('Company',uselist=False)
 	views_count = db.Column(db.Integer,default=0)
 
