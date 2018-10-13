@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_pagination %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+    <div class="container">
+        <h1>JobPlus</h1>
+        <p>在线招聘</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<ul class="nav nav-tabs list-title">
+    <li role="presentation" class="active"><a href="#">最新职位</a></li>
+</ul>
+
+<div class="newest-job-list">
+</div>
+
+<p class="list-more">
+<a href="#" class="btn btn-success btn-lg list-more-btn">查看更多</a>
+</p>
+
+<ul class="nav nav-tabs list-title">
+<li role="presentation" class="active"><a href="#">最新公司</a></li>
+</ul>
+
+<div class="nuwest-company-list">
+</div>
+
+<p class="list-more">
+<a href="#" class="btn btn-success btn-lg list-more-btn">查看更多</a>
+</p>
+{% endblock %}
+
