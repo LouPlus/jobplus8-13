@@ -1,8 +1,7 @@
-from flask import Blueprint
-from jobplus.models import *
+from flask import Blueprint,render_template
 
-front = Blueprint('front',__name__)
+front = Blueprint('front',__name__,url_prefix='/')
 
 @front.route('/')
 def index():
-	pass
+	return render_remplate(index.html)
