@@ -1,5 +1,3 @@
-
-
 def register_blueprints(app):
     from .handlers import front, job, company, admin, user, tests
     app.register_blueprint(front)
@@ -15,3 +13,4 @@ def create_app(config):
     db.init_app(app)
     register_blueprints(app)
     return app
+

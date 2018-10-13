@@ -9,3 +9,4 @@ def index():
     company = Company.query.all()
     return render_template('index.html', job=job, company=company)
 
+
