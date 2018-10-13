@@ -19,12 +19,13 @@ def register_extensions(app):
 	login_manager.login_view = 'front.login'
 
 def register_blueprints(app):
-	from .handlers import admin, front
-#	for bp in blueprints:
-#		app.register_blueprint(bp)
-
-	app.register_blueprint(front)
-	app.register_blueprint(admin)
+    from .handlers import front, job, company, admin, user, tests
+    app.register_blueprint(front)
+    app.register_blueprint(job)
+    app.register_blueprint(company)
+    app.register_blueprint(admin)
+    app.register_blueprint(user)
+    app.register_blueprint(tests)
 
 def register_error_hanlers(app):
 
@@ -37,6 +38,7 @@ def register_error_hanlers(app):
 		return render_template('error/500.html'),500
 
 def create_app(config):
+
 	app = Flask(__name__)
 
 	if isinstance(config,dict):
@@ -50,3 +52,4 @@ def create_app(config):
 	register_extensions(app)
 	register_error_hanlers(app)
 	return app
+
