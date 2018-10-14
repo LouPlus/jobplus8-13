@@ -15,7 +15,7 @@ def register_extensions(app):
     @login_manager.user_loader
     def user_loader(id):
         return User.query.get(id)
-
+        
     login_manager.login_view = 'front.login'
 
 def register_blueprints(app):
@@ -52,3 +52,4 @@ def create_app(config):
     register_extensions(app)
     register_error_hanlers(app)
     return app
+

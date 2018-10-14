@@ -1,19 +1,20 @@
 class BaseConfig():
-	SCRET_KEY ='makesure to set a very secret key'
+    SCRET_KEY ='makesure to set a very secret key'
 
 class DevelopmentConfig(BaseConfig):
-	DEBUG = True
-	SQLALCHEMY_DATABASE_URI = 'mysql://root@localhost:3306/jobplus?charset=utf8'
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'mysql://root@localhost:3306/jobplus?charset=utf8'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(BaseConfig):
-	pass
+    pass
 
 class TestingConfig(BaseConfig):
-	pass
+    pass
 
 
 configs = {
-	'development':DevelopmentConfig,
-	'production':ProductionConfig,
-	'testing':TestingConfig
+    'development':DevelopmentConfig,
+    'production':ProductionConfig,
+    'testing':TestingConfig
 }
