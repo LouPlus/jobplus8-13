@@ -10,15 +10,15 @@ def index():
     return render_template('index.html', job=job, company=company)
 
 @front.route('/userregister')
-def userregister():
+def index():
     return 'userregister'
 #后面几个路由都需要添加
 
 @front.route('/companyregister')
-def companyregister():
+def index():
     return 'companyregister'
 
 @front.route('/login')
-def login():
+def index():
     return  'login'
 

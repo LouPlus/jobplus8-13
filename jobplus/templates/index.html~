@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "macros.html" import render_pagination %}
+
 {% block title %}Home{% endblock %}
 
 {% block head %}
