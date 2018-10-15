@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template
 from jobplus.models import Job, Company
+from jobplus.forms import UserregisterForm,CompanyregisterForm,LoginForm
 
-front = Blueprint('front',__name__,url_prefix='/')
+front = Blueprint('front',__name__)
 
 @front.route('/')
 def index():
@@ -11,14 +12,17 @@ def index():
 
 @front.route('/userregister')
 def userregister():
-    return 'userregister'
-#后面几个路由都需要添加
+    form = UserregisterForm()
+    return render_template('userregister.html',form=form)
 
 @front.route('/companyregister')
 def companyregister():
-    return 'companyregister'
+    form = CompanyregisterForm()
+    return render_template('companyregister.html',form=form)
 
 @front.route('/login')
 def login():
-    return  'login'
+    form = LoginForm()
+    return render_template('login.html',form=form)
+
 
