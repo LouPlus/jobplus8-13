@@ -31,7 +31,6 @@
         <li><a href="{{ url_for('admin.index') }}">控制台</a></li>
         {% endif %}
     </ul>
-    <ul class="nav navbar-nav navbar-right">
     <!-- <右边导航条> -->
     <ul class="nav navbar-nav navbar-right">
         <!-- <非管理员的界面> -->
