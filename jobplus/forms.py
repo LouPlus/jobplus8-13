@@ -67,3 +67,23 @@ class LoginForm(FlaskForm):
         user = User.query.filter_by(email=self.email.data).first()
         if user and not user.check_password(field.data):
             raise ValidationError('密码不正确')
+
+class UserForm(FlaskForm):
+    name = StringField('姓名',validators=[Required(),Length(2,6)])
+    email = StringField('邮箱',validators=[Required(),Email()])
+    password = PasswordField('密码',validators=[Required(),Length(6,24)])
+    phonenumber = StringField('电话号码',validators=[Required(),Length(11,12)])
+    workyear = StringField('工作年限',validators=[Required(),Length(0,70)])
+    resume = StringField('上传简历')
+    submit = SubmitField('提交')
+
+   def user_data(self):
+       user = User()
+       user.name = self.user.data
+      # user.email = slef.email.data
+      # user.password = self.password.data
+       user.phonenumber = self.phonenumber.data
+      # user.workyear = self.workyear.data
+       user.resume = self.resume.data
+
+

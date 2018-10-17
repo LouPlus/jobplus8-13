@@ -34,7 +34,11 @@ class User(Base,UserMixin):
 	id = db.Column(db.Integer,primary_key=True)
 	#用户名	
 	username = db.Column(db.String(32),unique=True, nullable=False)
-	#邮箱
+	#姓名
+        name = db.Column(db.String(32))
+        #电话号码
+        phonenumber = db.Column(db.String(64))
+        #邮箱
 	email = db.Column(db.String(64),unique=True,index=True,nullable=False)
 	#密码
 	_password = db.Column('password',db.String(256),nullable=False)
