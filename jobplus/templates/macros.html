@@ -24,3 +24,14 @@
  </form>
  {% endmacro %}
 
+{% macro render_company(company) %}
+<div class="col-sm-6 col-md-3 company-item">
+  <div class="thumbnail">
+    <img src="{{ company.detail.logo }}" width="100" height="100" alt="...">
+    <h3>{{ company.name }}</h3>
+    <p>{{ company.detail.field }}</p>
+  <hr>
+  <p>在招职位:{{ company.jobs.count() }}</p>
+</div>
+</div>
+{% endmacro %}
