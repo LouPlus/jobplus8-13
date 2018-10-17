@@ -77,13 +77,13 @@ class UserForm(FlaskForm):
     resume = StringField('上传简历')
     submit = SubmitField('提交')
 
-   def user_data(self):
-       user = User()
-       user.name = self.user.data
-      # user.email = slef.email.data
-      # user.password = self.password.data
-       user.phonenumber = self.phonenumber.data
-      # user.workyear = self.workyear.data
-       user.resume = self.resume.data
+    def user_data(self):
+        user = User()
+        user.name = self.user.data
+       # user.email = slef.email.data
+       # user.password = self.password.data
+        user.phonenumber = self.phonenumber.data
+       # user.workyear = self.workyear.data
+        user.resume = self.resume.data
 
 
