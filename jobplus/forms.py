@@ -69,7 +69,7 @@ class LoginForm(FlaskForm):
             raise ValidationError('密码不正确')
 
 class UserForm(FlaskForm):
-    name = StringField('姓名',validators=[Required(),Length(2,6)])
+    username = StringField('姓名',validators=[Required(),Length(2,6)])
     email = StringField('邮箱',validators=[Required(),Email()])
     password = PasswordField('密码',validators=[Required(),Length(6,24)])
     phonenumber = StringField('电话号码',validators=[Required(),Length(11,12)])
@@ -77,13 +77,17 @@ class UserForm(FlaskForm):
     resume = StringField('上传简历')
     submit = SubmitField('提交')
 
-    def user_data(self):
-        user = User()
-        user.name = self.user.data
-       # user.email = slef.email.data
-       # user.password = self.password.data
+    def user_data(self, user):
+        user.username = self.username.data
+        user.email = self.email.data
+        if self.password.data:
+            user.password = self.password.data
         user.phonenumber = self.phonenumber.data
-       # user.workyear = self.workyear.data
+        user.workyear = self.workyear.data
         user.resume = self.resume.data
+        db.session.add(user)
+        db.session.commit()
+
+        
 
 
