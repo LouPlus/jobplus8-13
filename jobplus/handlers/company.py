@@ -5,6 +5,21 @@ from jobplus.models import User, Job, Company, Dilivery
 
 company = Blueprint('company',__name__, url_prefix='/company')
 
+@company.route('/profile',methods=['GET','POST'])
+@login_required
+def profile():
+	if not current_user.is_company:
+		flash('您不是企业用户','warning')
+		return redirect(url_for('front.index'))
+	form = CompanyProfileForm(obj=current_user.company_detail)
+	form.name.data = current_user.name
+	form.email.data = current_user.email
+	if form.validata_on_submit():
+		form.updated_profile(current_user)
+		flash('企业信息更新成功','success')
+		return redirect(url_for('front.index'))
+	return render_template('company/profile.html',form=form)
+
 @company.route('/')
 def index():
 	page = request.args.get('page',1,type=int)
