@@ -100,5 +100,3 @@ class CompanyProfileForm(FlaskForm):
         db.session.add(user)
         db.session.add(company_detail)
         db.session.commit()
-
-
