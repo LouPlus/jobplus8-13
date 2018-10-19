@@ -110,7 +110,7 @@ class Company(Base):
 	id = db.Column(db.Integer,primary_key=True)
     #企业名称
 	name = db.Column(db.String(64),nullable=False,index=True,unique=True)
-	#企业logo
+	#企业lo
 	logo = db.Column(db.String(64),nullable=True)
 	#企业网址
 	site = db.Column(db.String(64),nullable=False)
@@ -151,7 +151,6 @@ class Dilivery(Base):
 	STATUS_ACCEPT = 3
 
 	id = db.Column(db.Integer,primary_key=True)
-	
 	job_id = db.Column(db.Integer,db.ForeignKey('job.id',ondelete='SET NULL'))
 	user_id = db.Column(db.Integer,db.ForeignKey('user.id',ondelete='SET NULL'))
     
