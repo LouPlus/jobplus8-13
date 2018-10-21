@@ -32,4 +32,3 @@ def index():
 	)
 	return render_template('company/index.html',pagination=pagination,active='company')
 
-#@company.route('/profile', methods=['GET','POST'])

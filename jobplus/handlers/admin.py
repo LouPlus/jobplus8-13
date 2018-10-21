@@ -8,20 +8,20 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 @admin.route('/')
 @admin_required
 def index():
-    return render_template('admin/admin_base.html')
+    return render_template('admin/index.html')
 
-@admin.route('/user')
+@admin.route('/users')
 @admin_required
-def user():
+def users():
     page = request.args.get('page',default=1, type=int)
     pagination = User.query.paginate(
             page = page,
             per_page = current_app.config['ADMIN_PER_PAGE'],
             error_out = False
             )
-    return render_template('admin/admin_base.html', pagination=pagination)
+    return render_template('admin/users.html', pagination=pagination)
 
-@admin.route('/user/create_user', methods=['GET','POST'])
+@admin.route('/users/create_user', methods=['GET','POST'])
 @admin_required
 def create_user():
     form = UserregisterForm()
@@ -31,7 +31,7 @@ def create_user():
         return redirect(url_for('admin.users'))
     return render_template('admin/create_user.html', form=form)
 
-@admin.route('user/create_company', methods = ['GET', 'POST'])
+@admin.route('users/create_company', methods = ['GET', 'POST'])
 @admin_required
 def create_company():
     form = CompanyregisterForm()
@@ -42,7 +42,7 @@ def create_company():
         return redirect(url_for('admin.users'))
     return render_template('admin/create_company.html', form=form)
 
-@admin.route('/user/<int:user_id>/edit', methods=['GET', 'POST'])
+@admin.route('/users/<int:user_id>/edit', methods=['GET', 'POST'])
 @admin_required
 def edit_user(user_id):
     user = User.query.get_or_404(user_id)
@@ -59,7 +59,7 @@ def edit_user(user_id):
         form.description.data = user.detail.description
     return render_template('admin/edit_user.html', form=form, user=user)
 
-@admin.route('/user/<int:user_id>/disable', methods=['GET', 'POST'])
+@admin.route('/users/<int:user_id>/disable', methods=['GET', 'POST'])
 @admin_required
 def disable_user(user_id):
     user = User.query.get_or_404(user_id)

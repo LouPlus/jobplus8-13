@@ -69,6 +69,9 @@ class User(Base,UserMixin):
 	@property
 	def is_company(self):
 		return self.role == self.ROLE_COMPANY
+	@property
+	def is_staff(self):
+		return self.role == self.ROLE_USER
 
 #职位表
 class Job(Base):
