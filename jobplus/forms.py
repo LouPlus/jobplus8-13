@@ -139,4 +139,26 @@ class CompanyEditForm(FlaskForm):
             db.session.add(company)
             db.session.add(detail)
             db.session.commit()
+class UserForm(FlaskForm):
+    username = StringField('姓名',validators=[Required(),Length(2,6)])
+    email = StringField('邮箱',validators=[Required(),Email()])
+    password = PasswordField('密码',validators=[Required(),Length(6,24)])
+    phonenumber = StringField('电话号码',validators=[Required(),Length(11,12)])
+    workyear = StringField('工作年限',validators=[Required(),Length(0,70)])
+    resume = StringField('上传简历')
+    submit = SubmitField('提交')
+
+    def user_data(self, user):
+        user.username = self.username.data
+        user.email = self.email.data
+        if self.password.data:
+            user.password = self.password.data
+        user.phonenumber = self.phonenumber.data
+        user.workyear = self.workyear.data
+        user.resume = self.resume.data
+        db.session.add(user)
+        db.session.commit()
+
+        
+
 

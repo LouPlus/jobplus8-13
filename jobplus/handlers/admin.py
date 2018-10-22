@@ -1,14 +1,25 @@
+<<<<<<< HEAD
 from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash
 from jobplus.decorators import admin_required
 from jobplus.models import User, db
 from jobplus.forms import UserregisterForm,CompanyregisterForm,  UserEditForm, CompanyEditForm
+=======
+from flask import Blueprint
+from flask import render_template
+from jobplus.decorators import admin_required
+>>>>>>> origin/master
 
+admin = Blueprint('admin', __name__,url_prefix='/admin')
 
+<<<<<<< HEAD
 admin = Blueprint('admin', __name__, url_prefix='/admin')
+=======
+>>>>>>> origin/master
 @admin.route('/')
 @admin_required
 def index():
     return render_template('admin/index.html')
+<<<<<<< HEAD
 
 @admin.route('/users')
 @admin_required
@@ -73,4 +84,6 @@ def disable_user(user_id):
     db.session.commit()
     return redirect(url_for('admin.users'))
 
+=======
+>>>>>>> origin/master
 
