@@ -71,9 +71,12 @@ class User(Base,UserMixin):
         return self.role == self.ROLE_ADMIN
     #判断是不是企业用户
     @property
+<<<<<<< HEAD
     def is_staff(self):
         return self.role == self.ROLE_USER
     @property
+=======
+>>>>>>> d746f489261fba629bfa59e3d20fc7ea00091e6b
     def is_company(self):
         return self.role == self.ROLE_COMPANY
 
