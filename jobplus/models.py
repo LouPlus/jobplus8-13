@@ -34,6 +34,9 @@ class User(Base,UserMixin):
 	id = db.Column(db.Integer,primary_key=True)
 	#用户名	
 	username = db.Column(db.String(32),unique=True, nullable=False)
+	
+	name = db.Column(db.String(32))
+	phonenumber = db.Column(db.String(32))
 	#邮箱
 	email = db.Column(db.String(64),unique=True,index=True,nullable=False)
 	#密码
@@ -105,6 +108,15 @@ class Job(Base):
 
 	def __repr__(self):
 		return '<Job {}>'.format(self.name)
+
+	@property
+	def tag_list(self):
+		return self.tags.split(',')
+
+	@property
+	def current_user_is_applied(self):
+		d = Dilivery.query.filter_by(job_id=self.id, user_id=current_user.id).first()
+		return (d is not None)
 
 #企业表
 class Company(Base):
