@@ -3,8 +3,8 @@ from jobplus.decorators import admin_required
 from jobplus.models import User, db
 from jobplus.forms import UserregisterForm,CompanyregisterForm,  UserEditForm, CompanyEditForm
 
+admin = Blueprint('admin', __name__,url_prefix='/admin')
 
-admin = Blueprint('admin', __name__, url_prefix='/admin')
 @admin.route('/')
 @admin_required
 def index():
