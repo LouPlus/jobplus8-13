@@ -8,7 +8,7 @@ admin = Blueprint('admin', __name__,url_prefix='/admin')
 @admin.route('/')
 @admin_required
 def index():
-    return render_template('admin/index.html')
+    return render_template('admin/admin_base.html')
 
 @admin.route('/users')
 @admin_required
@@ -35,7 +35,7 @@ def create_user():
 @admin_required
 def create_company():
     form = CompanyregisterForm()
-    form.name.label = u'企业名称'
+    form.username.label = u'企业名称'
     if form.validate_on_submit():
         form.create_user()
         flash('企业创建成功', 'success')
