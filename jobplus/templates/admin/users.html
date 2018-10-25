@@ -46,7 +46,7 @@ Admin - users
                 <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" type="button" class="btn btn-default" title="编辑">
                     编辑
                 </a>
-                <a href="{[ url_for('admin.disable_user', user_id=user.id) }}" type="button" class="btn btn-default">
+                <a href="{{ url_for('admin.disable_user', user_id=user.id) }}" type="button" class="btn btn-default">
                     {% if user.is_disable %}启用{% else %}禁用{% endif %}
                 </a>
             </div>
