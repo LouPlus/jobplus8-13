@@ -46,6 +46,8 @@ class User(Base,UserMixin):
     work_years = db.Column(db.SmallInteger)
     #角色
     role = db.Column(db.SmallInteger,default=ROLE_USER)
+    #是否禁用
+    is_disable = db.Column(db.Boolean,default=False)
     #简历 （连接地址）
     resume = db.Column(db.String(64))
 #   resume = db.relationship('Resume',uselist=False)
