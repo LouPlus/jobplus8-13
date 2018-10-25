@@ -1,7 +1,22 @@
-{% extends "admin/admin_base.html" %}
-{% from "macros.html" import render_form %}
+{% extends "base.html" %}
 
-{% block admin %}
-<h4>编辑{% if user.is_company %}企业{% else %}用户{% endif %}</h4>
-{{ render_form(form,url_for('admin.edit_user',user_id=user.id)) }}
+<meta charset="UTF-8">
+{% block title %}
+Admin
+{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-md-3">
+		<h4>绠＄悊</h4>
+		<div class="list-group">
+			<a href="{{ url_for('admin.users') }}" class="list-group-item">鐢ㄦ埛</a>
+		</div>
+
+		{% block operation %}{% endblock %}
+	</div>
+	<div class="col-md-9">
+		{% block admin %}{% endblock %}
+	</div>
+</div>
 {% endblock %}
