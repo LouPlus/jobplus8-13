@@ -35,26 +35,26 @@ Admin - users
     {% for user in pagination.items %}
     <tr>
         <td>{{ user.id }}</td>
-        <td>{{ user.name }}</td>
-        <td>{% if user.is_company %}企业{% else %}求职者｛% endif %}</td>
+        <td>{{ user.username }}</td>
+        <td>{% if user.is_company %}企业{% else %}求职者{% endif %}</td>
         <td>{{ user.email }}</td>
         <td>{% if user.phone %}{{ user.phone }}{% else %}{% endif %}</td>
         <td>{% if user.real_name %}{{ user.real_name }}{% else %}{% endif %}</td>
-        <td>{% if user.is_company %}{{ user.detail.site }}{% endif %}{% endif %}</td>
+        <td>{% if user.is_company %}{{ user.detail.site }}{% endif %}</td>
         <td>
             <div class="btn-group" role="group">
-                <a href="{{ url_for('admin.edit_user', user_id=user.ed) }}" type="button" class="btn btn-default" title="编辑">
+                <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" type="button" class="btn btn-default" title="编辑">
                     编辑
                 </a>
                 <a href="{[ url_for('admin.disable_user', user_id=user.id) }}" type="button" class="btn btn-default">
-                    {if user.is_disable %}启用{% else %}禁用{% endif %}
+                    {% if user.is_disable %}启用{% else %}禁用{% endif %}
                 </a>
             </div>
         </td>
     </tr>
-    {% endif %}
+    {% endfor %}
     </tbody>
 </thead>
 </table>
 {{ render_pagination(pagination, 'admin.users') }}
-{% endblocak %}
+{% endblock %}
