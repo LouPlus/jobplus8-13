@@ -73,4 +73,13 @@ def disable_user(user_id):
     db.session.commit()
     return redirect(url_for('admin.users'))
 
-
+@admin.route('/jobs')
+@admin_required
+def jobs():
+    page = request.args.get('page',default=1, type=int)
+    pagination = Job.query.paginate(
+        page = page,
+        per_page=current_app.config['ADMIN_PER_PAGE'],
+        error_out=False
+    )
+    return render_template('admin/jobs.html',pagination=pagination)
