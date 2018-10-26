@@ -25,7 +25,7 @@ def detail(job_id):
 def apply(job_id):
 	job =Job.query.get_or_404(job_id)
 	if job.current_user_is_applied:
-		flash('您已投递过该职位','warning')
+		flash('您已投递过该职位','warnning')
 	else:
 		d = Dilivery(
 			job_id=job.id,
@@ -35,3 +35,39 @@ def apply(job_id):
 		db.session.commit()
 		flask('投递成功','success')
 	return redirect(url_for('job.detail', job_id=job_id))
+
+@job.route('/<int:job_id>/disable')
+@login_required
+def disable(job_id):
+	job = Job.query.get_or_404(job_id)
+	if not current_user.is_admin and current_user.id != job.company.id:
+		abort(404)
+	if job.is_disable:
+		flash('职位已经下线','warnning')
+	else:
+		job.is_disable = True
+		db.session.add(job)
+		db.session.commit()
+		flash('职位下线成功','success')
+	if current_user.is_admin:
+		return redirect(url_for('admin.jobs'))
+	else:
+		return redirect(url_for('company.admin_index', company_id=job.company.id))
+
+@job.route('/<int:job_id>/enable')
+@login_required
+def enable(job_id):
+	job = Job.query.get_or_404(job_id)
+	if not current_user.is_admin and current_user.id != job.company.id:
+		abort(404)
+	if job.is_disable:
+		flash('职位已经上线','warnning')
+	else:
+		job.is_disable = False
+		db.session.add(job)
+		db.session.commit()
+		flash('职位上线成功','success')
+	if current_user.is_admin:
+		return redirect(url_for('admin.jobs'))
+	else:
+		return redirect(url_for('company.admin_index', company_id=job.company.id))
