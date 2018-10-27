@@ -33,15 +33,17 @@ class User(Base,UserMixin):
         
     id = db.Column(db.Integer,primary_key=True)
     #用户名 
-    username = db.Column(db.String(32),unique=True, nullable=False)
-    #姓名
-    name = db.Column(db.String(32))
-    #电话号码
-    phonenumber = db.Column(db.String(64))
+    username = db.Column(db.String(32),unique=True, index=True,nullable=False)
     #邮箱
     email = db.Column(db.String(64),unique=True,index=True,nullable=False)
     #密码
     _password = db.Column('password',db.String(256),nullable=False)
+    #姓名
+    real_name = db.Column(db.String(32))
+    #电话号码
+    phone = db.Column(db.String(64))
+
+    work_years = db.Column(db.SmallInteger)
     #角色
     role = db.Column(db.SmallInteger,default=ROLE_USER)
     #简历 （连接地址）
@@ -50,10 +52,19 @@ class User(Base,UserMixin):
     #关联 user与job的关联 （与上边的关联表对应） 
     collect_jobs = db.relationship('Job',secondary=user_job)
     #
-    uoload_resume_url = db.Column(db.String(64))    
+    resume_url = db.Column(db.String(64))
+
+    detail =db.relationship('CompanyDetail',uselist=False)
+    is_disable = db.Column(db.Boolean,default=False)
 
     def __repr__(self):
         return '<User:{}>'.format(self.name)
+
+    @property
+    def enable_jobs(self):
+        if not self.is_company:
+            raise AttributeError('User has no attribute enable_jobs')
+        return self.jobs.filter(Job.is_disable.is_(False))
 
     @property
     def password(self):
@@ -89,6 +100,7 @@ class Job(Base):
     salary_high = db.Column(db.Integer,nullable=False)
     #职位地址 在什么地方工作
     location = db.Column(db.String(24))
+    description = db.Column(db.String(1500))
     #职位标签
     tags = db.Column(db.String(128))
     #工作年限要求
@@ -100,11 +112,12 @@ class Job(Base):
     #岗位是否在招牌 
     is_open = db.Column(db.Boolean,default=True)
     #公司的ID
-    company_id = db.Column(db.Integer,db.ForeignKey('company.id',ondelete='CASCADE'))
+    company_id = db.Column(db.Integer,db.ForeignKey('user.id',ondelete='CASCADE'))
     #对应的公司
-    company = db.relationship('Company',uselist=False)
+    company = db.relationship('User',uselist=False,backref=db.backref('jobs',lazy='dynamic'))
     #查看次数
     views_count = db.Column(db.Integer,default=0)
+    is_disable = db.Column(db.Boolean,default=False)
 
     def __repr__(self):
         return '<Job {}>'.format(self.name)
@@ -119,24 +132,24 @@ class Job(Base):
         return (d is not None)
 
 #企业表
-class Company(Base):
-    __tablename__ = 'company'
+class CompanyDetail(Base):
+    __tablename__ = 'company_detail'
 
     id = db.Column(db.Integer,primary_key=True)
     #企业名称
-    name = db.Column(db.String(64),nullable=False,index=True,unique=True)
+#    name = db.Column(db.String(64),nullable=False,index=True,unique=True)
     #企业logo
     logo = db.Column(db.String(64),nullable=True)
     #企业网址
     site = db.Column(db.String(64),nullable=False)
     #联系方式
-    contact =  db.Column(db.String(32),nullable=False)
+#    contact =  db.Column(db.String(32),nullable=False)
     #邮箱
-    email = db.Column(db.String(64),nullable=False)
+#    email = db.Column(db.String(64),nullable=False)
     #地理位置
     location = db.Column(db.String(24),nullable=False)
     #一句话描述
-    describe = db.Column(db.String(128),nullable=False)
+    description = db.Column(db.String(128))
     #详细介绍
     about = db.Column(db.String(1024))
     #公司标签
@@ -148,11 +161,12 @@ class Company(Base):
     team_introduction = db.Column(db.String(256))
     #公司福利
     welfares = db.Column(db.String(256))
+    field = db.Column(db.String(128))
     user_id = db.Column(db.Integer,db.ForeignKey('user.id',ondelete='SET NULL'))
-    user = db.relationship('User',uselist=False,backref=db.backref('company',uselist=False))
+    user = db.relationship('User',uselist=False,backref=db.backref('company_detail',uselist=False))
 
     def __repr__(self):
-        return '<Company {}>'.format(self.name)
+        return '<CompanyDetail {}>'.format(self.name)
 
 #企业投递管理表
 class Dilivery(Base):
@@ -170,7 +184,16 @@ class Dilivery(Base):
     job_id = db.Column(db.Integer,db.ForeignKey('job.id',ondelete='SET NULL'))
     user_id = db.Column(db.Integer,db.ForeignKey('user.id',ondelete='SET NULL'))
     
+    company_id = db.Column(db.Integer)
     #状态信息
     status = db.Column(db.SmallInteger,default=STATUS_WAITING)
     #企业的回应
     response = db.Column(db.String(256))
+
+    @property
+    def user(self):
+        return User.query.get(self.user_id)
+
+    @property
+    def job(self):
+        return Job.query.get(self.job_id)

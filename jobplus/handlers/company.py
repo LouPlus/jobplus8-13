@@ -1,7 +1,7 @@
 from flask import Blueprint,render_template, flash, redirect,url_for, request
 from flask_login import login_required, current_user
 from jobplus.forms import CompanyProfileForm
-from jobplus.models import User, Job, Company, Dilivery
+from jobplus.models import User, Job, CompanyDetail, Dilivery
 
 company = Blueprint('company',__name__, url_prefix='/company')
 
