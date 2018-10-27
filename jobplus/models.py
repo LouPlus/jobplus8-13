@@ -33,7 +33,7 @@ class User(Base,UserMixin):
         
     id = db.Column(db.Integer,primary_key=True)
     #用户名 
-    name = db.Column(db.String(32),unique=True, index=True,nullable=False)
+    username = db.Column(db.String(32),unique=True, index=True,nullable=False)
     #邮箱
     email = db.Column(db.String(64),unique=True,index=True,nullable=False)
     #密码
