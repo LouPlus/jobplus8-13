@@ -2,11 +2,6 @@
 {% from "macros.html" import render_form %}
 
 {% block admin %}
-<meta charset="UTF-8">
-<h4>缂栬緫{% if user.is_company %}浼佷笟{% else %}鐢ㄦ埛{% endif %}</h4>
+<h4>编辑{% if user.is_company %}企业{% else %}用户{% endif %}</h4>
 {{ render_form(form,url_for('admin.edit_user',user_id=user.id)) }}
 {% endblock %}
-
-
-
-
